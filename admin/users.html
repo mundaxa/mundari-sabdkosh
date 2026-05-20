@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Manage Users - Admin</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/dark.css"><link rel="stylesheet" href="../assets/css/light.css"><link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="main-content" style="margin-left:0;padding-top:0;">
+<nav class="top-navbar" style="left:0;position:relative;"><div class="navbar-left"><a href="index.html" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Dashboard</a><span style="font-weight:600;margin-left:12px;">Users</span></div></nav>
+<div class="page-content">
+<div class="card">
+<table class="admin-table"><thead><tr><th>User</th><th>Email</th><th>Role</th><th>Status</th><th>Contributions</th><th>Joined</th></tr></thead>
+<tbody id="admin-users-list"></tbody></table>
+</div></div></div>
+<script src="../assets/js/data.js"></script>
+<script>
+async function init() { await DB.init();
+    document.getElementById('admin-users-list').innerHTML = DB.users.map(u =>
+        `<tr><td style="display:flex;align-items:center;gap:8px;"><img src="${DB.avatar(u,32)}" style="width:32px;height:32px;border-radius:50%;"><div><strong>${u.full_name||u.username}</strong><div style="font-size:11px;opacity:0.5;">@${u.username}</div></div></td><td>${u.email}</td><td><span class="badge">${u.role_name}</span></td><td><span class="badge badge-${u.status==='active'?'success':'error'}">${u.status.charAt(0).toUpperCase()+u.status.slice(1)}</span></td><td>${u.contributions}</td><td style="opacity:0.5;">${DB.timeAgo(u.created_at)}</td></tr>`
+    ).join('');
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Admin Dashboard - Mundari Sabdkosh</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/dark.css"><link rel="stylesheet" href="../assets/css/light.css"><link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div id="admin-sidebar"></div>
+<div class="main-content" style="margin-left:0;">
+<nav class="top-navbar" style="left:0;">
+    <div class="navbar-left">
+        <button class="sidebar-toggle hamburger-menu" onclick="document.getElementById('admin-sidebar').classList.toggle('mobile-open')"><i class="fas fa-bars"></i></button>
+        <span style="font-weight:600;">Admin Dashboard</span>
+    </div>
+    <div class="navbar-right">
+        <button class="theme-switch"><i class="fas fa-moon"></i></button>
+        <a href="../login.html" class="btn btn-ghost btn-sm">Login</a>
+    </div>
+</nav>
+<div class="page-content">
+<h1 style="font-size:24px;font-weight:700;margin-bottom:24px;">Admin Dashboard</h1>
+<div class="admin-grid" id="admin-stats"></div>
+<div class="grid grid-2" style="margin-bottom:28px;">
+    <div class="card"><div class="card-header"><h3 style="font-size:15px;font-weight:600;">Recent Users</h3></div>
+        <table class="admin-table"><thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+        <tbody id="admin-users"></tbody></table>
+    </div>
+    <div class="card"><div class="card-header"><h3 style="font-size:15px;font-weight:600;">Recent Words</h3></div>
+        <table class="admin-table"><thead><tr><th>Word</th><th>Submitter</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody id="admin-words"></tbody></table>
+    </div>
+</div>
+</div></div></div>
+<script src="../assets/js/data.js"></script>
+<script>
+async function initAdmin() {
+    await DB.init();
+    if (!DB.isAdmin()) { document.body.innerHTML='<div class="auth-page"><div class="empty-state"><div class="empty-icon"><i class="fas fa-lock"></i></div><div class="empty-title">Access Denied</div><div class="empty-desc">Admin access required.</div><a href="../login.html" class="btn btn-primary">Sign In</a></div></div>'; return; }
+
+    document.getElementById('admin-stats').innerHTML = [
+        ['fa-users','Total Users',DB.users.length,'#4f7eff'],
+        ['fa-book','Total Words',DB.words.length,'#7c3aed'],
+        ['fa-hourglass-half','Pending Words',DB.words.filter(w=>w.status==='pending').length,'#f59e0b'],
+        ['fa-newspaper','Articles',DB.articles.length,'#06b6d4'],
+        ['fa-flag','Pending Reports',0,'#ef4444'],
+        ['fa-comments','Discussions',DB.discussions.length,'#22c55e']
+    ].map(s => `<div class="stat-card"><div class="stat-icon" style="background:${s[3]}20;color:${s[3]};"><i class="fas ${s[0]}"></i></div><div class="stat-value">${s[2]}</div><div class="stat-label">${s[1]}</div></div>`).join('');
+
+    document.getElementById('admin-users').innerHTML = DB.users.slice(0,5).map(u =>
+        `<tr><td style="display:flex;align-items:center;gap:8px;"><img src="${DB.avatar(u,28)}" alt="" style="width:28px;height:28px;border-radius:50%;"><span>${u.full_name||u.username}</span></td><td><span class="badge">${u.role_name}</span></td><td><span class="badge badge-${u.status==='active'?'success':'error'}">${u.status.charAt(0).toUpperCase()+u.status.slice(1)}</span></td><td style="opacity:0.5;">${DB.timeAgo(u.created_at)}</td></tr>`
+    ).join('');
+
+    document.getElementById('admin-words').innerHTML = DB.words.slice(0,5).map(w =>
+        `<tr><td><strong>${w.word}</strong></td><td>${DB.getUser(w.submitted_by)?.username||'Anonymous'}</td><td><span class="badge badge-${w.status==='approved'?'success':w.status==='pending'?'warning':'error'}">${w.status.charAt(0).toUpperCase()+w.status.slice(1)}</span></td><td style="opacity:0.5;">${DB.timeAgo(w.created_at)}</td></tr>`
+    ).join('');
+}
+document.addEventListener('DOMContentLoaded', initAdmin);
+</script>
+</body>
+</html>

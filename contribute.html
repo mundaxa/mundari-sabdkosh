@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Contribute - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/dark.css"><link rel="stylesheet" href="assets/css/light.css"><link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder" data-back="index.html"></div>
+<div class="page-content">
+<div style="max-width:720px;margin:0 auto;">
+<div id="contribute-login-msg"></div>
+<div id="contribute-form" style="display:none;">
+<div style="margin-bottom:28px;"><h1 style="font-size:28px;font-weight:700;">Contribute a Word</h1><p style="opacity:0.5;margin-top:4px;">Help preserve the Mundari language by adding new words.</p></div>
+<div id="contribute-msg" style="display:none;" class="toast" style="margin-bottom:16px;"></div>
+<div class="card">
+<form onsubmit="return handleContribute(event)">
+<div class="grid grid-2" style="gap:16px;">
+    <div class="form-group"><label class="form-label">Word (Roman) *</label><input type="text" id="c-word" class="form-input" placeholder="e.g. Johar" required></div>
+    <div class="form-group"><label class="form-label">Word (Devanagari)</label><input type="text" id="c-deva" class="form-input" placeholder="e.g. जोहार"></div>
+</div>
+<div class="form-group"><label class="form-label">English Meaning *</label><textarea id="c-en" class="form-textarea" placeholder="Enter the meaning in English" required></textarea></div>
+<div class="form-group"><label class="form-label">Hindi Meaning</label><textarea id="c-hi" class="form-textarea" placeholder="हिंदी में अर्थ"></textarea></div>
+<div class="grid grid-2" style="gap:16px;">
+    <div class="form-group"><label class="form-label">Part of Speech</label><select id="c-pos" class="form-select"><option value="">Select...</option><option>Noun</option><option>Verb</option><option>Adjective</option><option>Adverb</option></select></div>
+    <div class="form-group"><label class="form-label">Category</label><select id="c-cat" class="form-select"><option value="">Select...</option></select></div>
+</div>
+<div class="form-group"><label class="form-label">Usage Example</label><textarea id="c-example" class="form-textarea" placeholder="Example sentence"></textarea></div>
+<div class="form-group"><label class="form-label">Region</label><input type="text" id="c-region" class="form-input" placeholder="e.g. Jharkhand"></div>
+<div style="display:flex;gap:12px;justify-content:flex-end;padding-top:16px;border-top:1px solid var(--border-color);">
+    <a href="index.html" class="btn btn-ghost">Cancel</a>
+    <button type="submit" class="btn btn-primary">Submit for Review</button>
+</div>
+</form></div></div></div>
+<div class="footer-placeholder"></div>
+</div></div></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script>
+async function initContribute() {
+    await DB.init();
+    if (!DB.isLoggedIn()) {
+        document.getElementById('contribute-login-msg').innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-lock"></i></div><div class="empty-title">Login Required</div><div class="empty-desc">Please sign in to contribute words.</div><a href="login.html" class="btn btn-primary">Sign In</a></div>';
+        return;
+    }
+    document.getElementById('contribute-form').style.display = 'block';
+    const sel = document.getElementById('c-cat');
+    sel.innerHTML = '<option value="">Select...</option>' + DB.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+async function handleContribute(e) {
+    e.preventDefault();
+    const word = { word: document.getElementById('c-word').value, word_devanagari: document.getElementById('c-deva').value, meaning_en: document.getElementById('c-en').value, meaning_hi: document.getElementById('c-hi').value, part_of_speech: document.getElementById('c-pos').value, category_id: parseInt(document.getElementById('c-cat').value) || null, usage_example: document.getElementById('c-example').value, region: document.getElementById('c-region').value, status: 'pending' };
+    DB.addWord(word);
+    const msg = document.getElementById('contribute-msg');
+    msg.style.display = 'flex'; msg.className = 'toast'; msg.style.borderLeft = '3px solid var(--success)';
+    msg.innerHTML = '<i class="fas fa-check-circle" style="color:var(--success)"></i><span>Thank you! Your word has been submitted for review.</span>';
+    e.target.reset();
+    return false;
+}
+document.addEventListener('DOMContentLoaded', initContribute);
+</script>
+</body>
+</html>

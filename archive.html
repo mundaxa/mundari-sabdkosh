@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Digital Archive - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/dark.css"><link rel="stylesheet" href="assets/css/light.css"><link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder"></div>
+<div class="page-content">
+<div style="margin-bottom:28px;"><h1 style="font-size:28px;font-weight:700;">Digital Archive</h1><p style="opacity:0.5;margin-top:4px;">Preserved manuscripts, historical documents, and oral history recordings</p></div>
+<div class="grid grid-auto">
+    <div class="card"><div style="width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;background:rgba(124,58,237,0.15);color:#7c3aed;font-size:20px;margin-bottom:12px;"><i class="fas fa-scroll"></i></div><h3 style="font-size:16px;font-weight:600;margin:0 0 6px;">Manuscripts</h3><p style="font-size:13px;opacity:0.6;">Digitized historical manuscripts and documents in Mundari.</p><span class="badge" style="margin-top:8px;">42 items</span></div>
+    <div class="card"><div style="width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;background:rgba(6,182,212,0.15);color:#06b6d4;font-size:20px;margin-bottom:12px;"><i class="fas fa-microphone-alt"></i></div><h3 style="font-size:16px;font-weight:600;margin:0 0 6px;">Oral History</h3><p style="font-size:13px;opacity:0.6;">Recorded interviews and oral traditions.</p><span class="badge" style="margin-top:8px;">28 recordings</span></div>
+    <div class="card"><div style="width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:20px;margin-bottom:12px;"><i class="fas fa-landmark"></i></div><h3 style="font-size:16px;font-weight:600;margin:0 0 6px;">Historical Records</h3><p style="font-size:13px;opacity:0.6;">Colonial-era documents and ethnographic records.</p><span class="badge" style="margin-top:8px;">156 items</span></div>
+    <div class="card"><div style="width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;background:rgba(239,68,68,0.15);color:#ef4444;font-size:20px;margin-bottom:12px;"><i class="fas fa-photo-video"></i></div><h3 style="font-size:16px;font-weight:600;margin:0 0 6px;">Photo Collection</h3><p style="font-size:13px;opacity:0.6;">Historical photographs documenting tribal life.</p><span class="badge" style="margin-top:8px;">89 photos</span></div>
+</div>
+<div class="card" style="margin-top:24px;"><h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">Timeline</h3>
+    ${[['2024','Platform launched'],['2023','Digital preservation started'],['2020','Community archiving begins'],['2018','Language documentation project'],['2015','First prototype'],['2000','Early linguistic research']].map(t => `<div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;border-bottom:1px solid var(--border-color);"><span class="badge" style="min-width:56px;text-align:center;">${t[0]}</span><span style="font-size:13px;">${t[1]}</span></div>`).join('')}
+</div>
+<div class="footer-placeholder"></div>
+</div></div></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+</body>
+</html>

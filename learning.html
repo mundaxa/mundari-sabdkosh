@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Learning Center - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/dark.css"><link rel="stylesheet" href="assets/css/light.css"><link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder"></div>
+<div class="page-content">
+<div style="margin-bottom:28px;"><h1 style="font-size:28px;font-weight:700;">Learning Center</h1><p style="opacity:0.5;margin-top:4px;">Interactive quizzes, flashcards, and lessons to learn Mundari</p></div>
+<div class="grid grid-auto" style="margin-bottom:28px;">
+    <div class="feature-card" style="border:1px solid var(--border-color);background:var(--bg-card);"><div class="fc-icon"><i class="fas fa-brain"></i></div><h4 class="fc-title">Daily Quiz</h4><p class="fc-desc">Test your Mundari vocabulary with daily quizzes</p><button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="alert('Quiz started!')">Start Quiz</button></div>
+    <div class="feature-card" style="border:1px solid var(--border-color);background:var(--bg-card);"><div class="fc-icon"><i class="fas fa-layer-group"></i></div><h4 class="fc-title">Flashcards</h4><p class="fc-desc">Review words using spaced repetition flashcards</p><button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="alert('Flashcards loaded!')">Study Now</button></div>
+    <div class="feature-card" style="border:1px solid var(--border-color);background:var(--bg-card);"><div class="fc-icon"><i class="fas fa-chart-line"></i></div><h4 class="fc-title">Progress Tracker</h4><p class="fc-desc">Track your learning progress and streaks</p><button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="alert('Viewing progress!')">View Progress</button></div>
+</div>
+<h3 style="font-size:18px;font-weight:600;margin-bottom:16px;">Available Quizzes</h3>
+<div class="grid grid-auto" id="quizzes-grid"></div>
+<div class="footer-placeholder"></div>
+</div></div></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script>
+async function initLearning() {
+    await DB.init();
+    document.getElementById('quizzes-grid').innerHTML = DB.quizzes.length
+        ? DB.quizzes.map(q => `<div class="card"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;"><div><h4 style="font-size:15px;font-weight:600;">${q.title}</h4><p style="font-size:12px;opacity:0.5;margin-top:4px;">${q.description}</p></div><span class="badge">${q.difficulty.charAt(0).toUpperCase()+q.difficulty.slice(1)}</span></div><div style="display:flex;gap:16px;font-size:12px;opacity:0.5;margin-bottom:12px;"><span><i class="fas fa-list"></i> ${q.question_count} questions</span><span><i class="fas fa-clock"></i> ${q.time_limit}s</span><span><i class="fas fa-percent"></i> ${q.passing_score}% to pass</span></div><button class="btn btn-primary btn-sm" onclick="alert('Starting quiz: ${q.title}')">Start Quiz</button></div>`).join('')
+        : '<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon"><i class="fas fa-graduation-cap"></i></div><div class="empty-title">No Quizzes Available</div></div>';
+}
+document.addEventListener('DOMContentLoaded', initLearning);
+</script>
+</body>
+</html>

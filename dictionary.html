@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionary - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/dark.css">
+<link rel="stylesheet" href="assets/css/light.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder"></div>
+<div class="page-content">
+<div class="dictionary-header">
+    <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.02em;">Dictionary</h1>
+    <p style="opacity:0.5;margin-top:4px;" id="dictionary-info">Browse the complete Mundari dictionary</p>
+    <div class="dictionary-filters" id="category-filters"></div>
+</div>
+<div class="word-detail-grid">
+    <div id="dictionary-results"></div>
+    <div>
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header"><h4 style="font-size:14px;font-weight:600;">Quick Stats</h4></div>
+            <div id="quick-stats"></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><h4 style="font-size:14px;font-weight:600;">Trending Words</h4></div>
+            <div id="trending-sidebar"></div>
+        </div>
+    </div>
+</div>
+<div class="pagination" id="pagination" style="display:none;"></div>
+<div class="footer-placeholder"></div>
+</div>
+</div>
+</div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script>
+async function initDict() {
+    await DB.init();
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q') || '';
+    const cat = params.get('cat') || '';
+    const page = parseInt(params.get('p')) || 1;
+    const perPage = 15;
+
+    // Filters
+    document.getElementById('category-filters').innerHTML =
+        `<span class="filter-chip ${!cat ? 'active' : ''}" onclick="location.href='dictionary.html${q ? '?q='+q : ''}'">All</span>` +
+        DB.categories.map(c => `<span class="filter-chip ${cat === c.slug ? 'active' : ''}" onclick="location.href='dictionary.html?cat=${c.slug}${q ? '&q='+q : ''}'" style="--chip-color:${c.color}"><i class="fas ${c.icon}"></i> ${c.name}</span>`).join('');
+
+    let words = DB.words.filter(w => w.status === 'approved');
+    if (q) words = DB.searchWords(q);
+    if (cat) words = words.filter(w => DB.getCategoryName(w.category_id).toLowerCase() === cat);
+    
+    const total = words.length;
+    const totalPages = Math.ceil(total / perPage);
+    const start = (page - 1) * perPage;
+    const pageWords = words.slice(start, start + perPage);
+
+    document.getElementById('dictionary-info').textContent = q
+        ? `Showing results for "${q}" (${total} entries found)`
+        : `Browse the complete Mundari dictionary (${total} entries)`;
+
+    document.getElementById('dictionary-results').innerHTML = pageWords.length
+        ? pageWords.map(w => `<a href="word.html?id=${w.id}" class="word-entry" style="border:1px solid var(--border-color);margin-bottom:8px;display:block;">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="flex:1;min-width:0;">
+                    <div class="we-word">${w.word}</div>
+                    ${w.word_devanagari ? `<div class="we-script">${w.word_devanagari}</div>` : ''}
+                    <div class="we-meaning">${DB.truncate(w.meaning_en, 120)}</div>
+                    <div class="we-meta">
+                        <span><i class="fas fa-tag"></i> ${DB.getCategoryName(w.category_id)}</span>
+                        <span><i class="fas fa-eye"></i> ${DB.formatNumber(w.views_count)}</span>
+                        <span><i class="fas fa-clock"></i> ${DB.timeAgo(w.created_at)}</span>
+                    </div>
+                </div>
+                ${w.audio_file ? '<span style="opacity:0.4;"><i class="fas fa-volume-up"></i></span>' : ''}
+            </div>
+        </a>`).join('')
+        : `<div class="empty-state"><div class="empty-icon"><i class="fas fa-book-open"></i></div><div class="empty-title">No words found</div><div class="empty-desc">${q ? 'No results for "'+q+'". Try a different search term.' : 'The dictionary is being populated.'}</div><a href="dictionary.html" class="btn btn-primary">Browse All</a></div>`;
+
+    // Pagination
+    if (totalPages > 1) {
+        const p = document.getElementById('pagination');
+        p.style.display = 'flex';
+        p.innerHTML = '';
+        if (page > 1) p.innerHTML += `<a href="?p=${page-1}${q?'&q='+q:''}${cat?'&cat='+cat:''}" class="page-btn"><i class="fas fa-chevron-left"></i></a>`;
+        for (let i=1; i<=totalPages && i<=10; i++)
+            p.innerHTML += `<a href="?p=${i}${q?'&q='+q:''}${cat?'&cat='+cat:''}" class="page-btn ${i===page?'active':''}">${i}</a>`;
+        if (page < totalPages) p.innerHTML += `<a href="?p=${page+1}${q?'&q='+q:''}${cat?'&cat='+cat:''}" class="page-btn"><i class="fas fa-chevron-right"></i></a>`;
+    }
+
+    // Sidebar stats
+    document.getElementById('quick-stats').innerHTML = `
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);font-size:13px;"><span style="opacity:0.5;"><i class="fas fa-book" style="width:20px;"></i> Total Words</span><strong>${DB.words.filter(w=>w.status==='approved').length}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;"><span style="opacity:0.5;"><i class="fas fa-folder" style="width:20px;"></i> Categories</span><strong>${DB.categories.length}</strong></div>`;
+
+    document.getElementById('trending-sidebar').innerHTML = DB.trendingWords(6).map(w =>
+        `<a href="word.html?id=${w.id}" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border-color);font-size:13px;">
+            <i class="fas fa-fire" style="color:var(--warning);font-size:12px;"></i>
+            <span style="font-weight:500;">${w.word}</span>
+            <span style="margin-left:auto;opacity:0.4;font-size:11px;">${DB.formatNumber(w.views_count)}</span>
+        </a>`
+    ).join('');
+}
+document.addEventListener('DOMContentLoaded', initDict);
+</script>
+</body>
+</html>

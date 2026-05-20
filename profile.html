@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Profile - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/dark.css"><link rel="stylesheet" href="assets/css/light.css"><link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder" data-back="index.html"></div>
+<div class="page-content"><div id="profile-content" style="max-width:800px;margin:0 auto;"></div>
+<div class="footer-placeholder"></div>
+</div></div></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script>
+async function initProfile() {
+    await DB.init();
+    const c = document.getElementById('profile-content');
+    if (!DB.isLoggedIn()) {
+        c.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-lock"></i></div><div class="empty-title">Login Required</div><div class="empty-desc">Please sign in to view your profile.</div><a href="login.html" class="btn btn-primary">Sign In</a></div>';
+        return;
+    }
+    const u = DB.currentUser;
+    const wordCount = DB.words.filter(w => w.submitted_by === u.id).length;
+    c.innerHTML = `
+    <div class="card" style="text-align:center;padding:40px;margin-bottom:24px;">
+        <img src="${DB.avatar(u,96)}" alt="" style="width:96px;height:96px;border-radius:50%;margin:0 auto 16px;">
+        <h1 style="font-size:24px;font-weight:700;">${u.full_name || u.username}</h1>
+        <p style="opacity:0.5;">@${u.username} &middot; ${u.role_name}</p>
+        ${u.bio ? `<p style="margin-top:12px;max-width:400px;margin-left:auto;margin-right:auto;">${u.bio}</p>` : ''}
+        <div style="display:flex;gap:32px;justify-content:center;margin-top:24px;">
+            <div><div style="font-size:24px;font-weight:700;">${wordCount}</div><div style="font-size:12px;opacity:0.5;">Contributions</div></div>
+            <div><div style="font-size:24px;font-weight:700;">0</div><div style="font-size:12px;opacity:0.5;">Bookmarks</div></div>
+            <div><div style="font-size:24px;font-weight:700;">${u.reputation}</div><div style="font-size:12px;opacity:0.5;">Reputation</div></div>
+        </div>
+    </div>
+    <div class="card"><h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">Account Details</h3>
+        <div style="font-size:13px;">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="opacity:0.5;">Email</span><span>${u.email}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="opacity:0.5;">Role</span><span>${u.role_name}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="opacity:0.5;">Member Since</span><span>${new Date(u.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>
+        </div>
+    </div>`;
+}
+document.addEventListener('DOMContentLoaded', initProfile);
+</script>
+</body>
+</html>

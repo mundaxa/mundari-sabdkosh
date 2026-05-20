@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Community - Mundari Sabdkosh</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f7eff'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'%3Eम%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/dark.css"><link rel="stylesheet" href="assets/css/light.css"><link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+<div class="mobile-overlay"></div>
+<div class="app-layout">
+<div class="sidebar-placeholder"></div>
+<div class="main-content">
+<div class="navbar-placeholder"></div>
+<div class="page-content">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;"><div><h1 style="font-size:28px;font-weight:700;">Community</h1><p style="opacity:0.5;margin-top:4px;">Connect, discuss, and collaborate with fellow contributors</p></div></div>
+<div class="grid grid-2">
+    <div>
+        <div class="card-header"><h3 style="font-size:16px;font-weight:600;">Discussions</h3></div>
+        <div id="discussions-list"></div>
+    </div>
+    <div>
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-header"><h3 style="font-size:15px;font-weight:600;">Top Contributors</h3></div>
+            <div id="contributors-sidebar"></div>
+        </div>
+        <div class="card">
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:12px;">Community Stats</h3>
+            <div id="community-stats"></div>
+        </div>
+    </div>
+</div>
+<div class="footer-placeholder"></div>
+</div></div></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script>
+async function initCommunity() {
+    await DB.init();
+    document.getElementById('discussions-list').innerHTML = DB.discussions.length
+        ? DB.discussions.map(d => {
+            const user = DB.getUser(d.user_id);
+            return `<div class="card" style="margin-bottom:12px;cursor:pointer;">
+                <div style="display:flex;align-items:flex-start;gap:12px;">
+                    <img src="${DB.avatar(user,36)}" alt="" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;">
+                    <div style="flex:1;min-width:0;">
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                            <h4 style="font-size:14px;font-weight:600;">${d.title}</h4>
+                            ${d.is_pinned ? '<span class="badge" style="background:var(--accent-primary);color:#fff;font-size:10px;">Pinned</span>' : ''}
+                        </div>
+                        <p style="font-size:12px;opacity:0.6;margin-top:4px;">${DB.truncate(d.content, 120)}</p>
+                        <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;opacity:0.4;">
+                            <span><i class="fas fa-user"></i> ${user?.full_name || 'Anonymous'}</span>
+                            <span><i class="fas fa-comment"></i> ${d.replies || 0} replies</span>
+                            <span><i class="fas fa-eye"></i> ${DB.formatNumber(d.views_count)}</span>
+                            <span><i class="fas fa-clock"></i> ${DB.timeAgo(d.created_at)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }).join('')
+        : '<div class="empty-state"><div class="empty-icon"><i class="fas fa-comments"></i></div><div class="empty-title">No Discussions Yet</div></div>';
+
+    document.getElementById('contributors-sidebar').innerHTML = DB.topContributors(6).map(c =>
+        `<div class="contributor-card"><img src="${DB.avatar(c)}" alt="" class="cc-avatar"><div class="cc-info"><div class="cc-name">${c.full_name || c.username}</div><div class="cc-role">${c.contributions} contributions</div></div><div class="cc-stats">${c.reputation} pts</div></div>`
+    ).join('');
+
+    const active = DB.users.filter(u => u.status === 'active').length;
+    document.getElementById('community-stats').innerHTML = `
+        <div style="font-size:13px;"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="opacity:0.5;"><i class="fas fa-users" style="width:20px;"></i> Active Members</span><strong>${active}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="opacity:0.5;"><i class="fas fa-comments" style="width:20px;"></i> Discussions</span><strong>${DB.discussions.length}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="opacity:0.5;"><i class="fas fa-book" style="width:20px;"></i> Words</span><strong>${DB.words.filter(w=>w.status==='approved').length}</strong></div></div>`;
+}
+document.addEventListener('DOMContentLoaded', initCommunity);
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[
+    {"id":1,"name":"Language","slug":"language","icon":"fa-language","color":"#4f46e5","word_count":12},
+    {"id":2,"name":"Culture","slug":"culture","icon":"fa-dharmachakra","color":"#0891b2","word_count":8},
+    {"id":3,"name":"History","slug":"history","icon":"fa-landmark","color":"#7c3aed","word_count":5},
+    {"id":4,"name":"People","slug":"people","icon":"fa-users","color":"#059669","word_count":9},
+    {"id":5,"name":"Places","slug":"places","icon":"fa-map-marked-alt","color":"#d97706","word_count":6},
+    {"id":6,"name":"Traditions","slug":"traditions","icon":"fa-hand-sparkles","color":"#dc2626","word_count":7},
+    {"id":7,"name":"Songs","slug":"songs","icon":"fa-music","color":"#db2777","word_count":4},
+    {"id":8,"name":"Proverbs","slug":"proverbs","icon":"fa-quote-right","color":"#65a30d","word_count":3},
+    {"id":9,"name":"Rituals","slug":"rituals","icon":"fa-hands-praying","color":"#0d9488","word_count":5},
+    {"id":10,"name":"Folklore","slug":"folklore","icon":"fa-book-open","color":"#9333ea","word_count":6}
+]

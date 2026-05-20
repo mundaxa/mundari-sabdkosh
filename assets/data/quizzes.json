@@ -1,0 +1,4 @@
+[
+    {"id":1,"title":"Basic Mundari Greetings","description":"Test your knowledge of basic Mundari greetings","difficulty":"beginner","time_limit":180,"passing_score":60,"question_count":3,"created_by":2},
+    {"id":2,"title":"Mundari Vocabulary - Nature","description":"Words related to nature, plants, and animals","difficulty":"intermediate","time_limit":300,"passing_score":60,"question_count":3,"created_by":3}
+]
