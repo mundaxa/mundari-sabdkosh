@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/birsa-munda.jpg" alt="Mundari Sabdkosh - Birsa Munda" width="200" style="border-radius: 16px;">
+  <img src="https://raw.githubusercontent.com/mundaxa/mundari-sabdkosh/main/assets/images/birsa-munda.jpg" alt="Mundari Sabdkosh - Birsa Munda" width="200" style="border-radius: 16px;">
 </p>
 
 # Mundari Sabdkosh
