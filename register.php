@@ -61,7 +61,7 @@ $theme = $_COOKIE['theme'] ?? 'dark';
 <div class="auth-page">
     <div class="auth-container">
         <div class="auth-header">
-            <div class="auth-logo">म</div>
+            <img src="assets/images/birsa-munda.jpg" alt="Birsa Munda" style="width:60px;height:60px;border-radius:16px;object-fit:cover;margin-bottom:8px;">
             <h1>Create Account</h1>
             <p>Join the Mundari Sabdkosh community</p>
         </div>

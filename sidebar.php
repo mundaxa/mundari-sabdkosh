@@ -62,7 +62,7 @@ if (!isset($_SESSION['role_slug']) || !in_array($_SESSION['role_slug'], ['admin'
 ?>
 <aside class="sidebar">
     <div class="sidebar-logo">
-        <div class="logo-icon">म</div>
+        <img src="assets/images/birsa-munda.jpg" alt="Birsa Munda" style="width:40px;height:40px;border-radius:10px;object-fit:cover;flex-shrink:0;">
         <div class="logo-text">
             Mundari Sabdkosh
             <span class="logo-sub">Tribal Dictionary & Knowledge System</span>
