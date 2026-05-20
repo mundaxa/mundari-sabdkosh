@@ -1,24 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2563eb"/>
-      <stop offset="100%" style="stop-color:#7c3aed"/>
+      <stop offset="0%" style="stop-color:#991b1b"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
     </linearGradient>
-    <linearGradient id="bgHover" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1d4ed8"/>
-      <stop offset="100%" style="stop-color:#6d28d9"/>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
     </linearGradient>
     <filter id="shadow">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
     </filter>
   </defs>
   <g filter="url(#shadow)">
-    <rect x="8" y="8" width="104" height="104" rx="24" fill="url(#bg)"/>
-    <rect x="8" y="8" width="104" height="104" rx="24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
-    <path d="M36 38h48v6H36zm0 14h36v6H36zm0 14h42v6H36z" fill="rgba(255,255,255,0.2)" rx="2"/>
-    <text x="60" y="96" font-family="serif" font-size="56" font-weight="bold" fill="white" text-anchor="middle">म</text>
+    <rect x="6" y="6" width="108" height="108" rx="24" fill="url(#bg)"/>
+    <rect x="6" y="6" width="108" height="108" rx="24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+    <path d="M92 28 Q80 32 72 40 Q64 48 60 60 Q56 48 48 40 Q40 32 28 28" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M60 28 L60 88" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M52 78 L60 88 L68 78" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M60 40 L60 28" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="60" cy="50" r="4" fill="rgba(255,255,255,0.2)"/>
+    <text x="60" y="95" font-family="serif" font-size="12" font-weight="bold" fill="rgba(255,255,255,0.7)" text-anchor="middle">बिरसा</text>
   </g>
-  <text x="132" y="58" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif" font-size="32" font-weight="700" fill="#1f2937">Mundari</text>
-  <text x="132" y="86" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif" font-size="16" font-weight="500" fill="#6b7280" letter-spacing="1.5">SABDKOSH</text>
-  <line x1="132" y1="94" x2="260" y2="94" stroke="url(#bg)" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="132" y="56" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif" font-size="32" font-weight="700" fill="#1f2937">Mundari</text>
+  <text x="132" y="82" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif" font-size="15" font-weight="500" fill="#6b7280" letter-spacing="1.5">SABDKOSH</text>
+  <line x1="132" y1="92" x2="260" y2="92" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
 </svg>

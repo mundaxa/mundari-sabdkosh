@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2563eb"/>
-      <stop offset="100%" style="stop-color:#7c3aed"/>
+      <stop offset="0%" style="stop-color:#991b1b"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
     </linearGradient>
     <filter id="shadow">
       <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.25"/>
@@ -11,7 +11,8 @@
   <g filter="url(#shadow)">
     <rect width="120" height="120" rx="28" fill="url(#bg)"/>
     <rect width="120" height="120" rx="28" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-    <path d="M32 40h56v6H32zm0 16h44v6H32zm0 16h50v6H32z" fill="rgba(255,255,255,0.15)" rx="2"/>
-    <text x="60" y="104" font-family="serif" font-size="64" font-weight="bold" fill="white" text-anchor="middle">म</text>
+    <path d="M100 32 Q88 36 80 44 Q72 52 68 64 Q64 52 56 44 Q48 36 36 32" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M68 32 L68 92" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M60 82 L68 92 L76 82" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>
