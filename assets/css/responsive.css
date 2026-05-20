@@ -1,0 +1,202 @@
+/* ============================================================
+   MUNDARI SABDKOSH — Responsive Styles
+   ============================================================ */
+
+/* Large Screens (1200px+) */
+@media (max-width: 1400px) {
+    .page-content { padding: 24px 28px; }
+}
+
+@media (max-width: 1200px) {
+    .grid-4 { grid-template-columns: repeat(3, 1fr); }
+    .navbar-search { width: 320px; }
+    .navbar-search input:focus { width: 360px; }
+}
+
+/* Medium Screens (1024px) */
+@media (max-width: 1024px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .word-detail-grid { grid-template-columns: 1fr; }
+    .hero-section { min-height: 340px; padding: 36px 28px; }
+    .hero-title { font-size: 34px; }
+    .page-content { padding: 20px 24px; }
+}
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .grid-auto { grid-template-columns: 1fr; }
+
+    .page-content { padding: 16px; }
+
+    .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width) !important;
+    }
+    .sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-lg);
+    }
+    .sidebar.collapsed { width: var(--sidebar-width) !important; }
+    .sidebar.collapsed .nav-item .nav-label,
+    .sidebar.collapsed .nav-item .nav-badge { display: inline; }
+    .sidebar.collapsed .nav-section-title { display: block; }
+    .sidebar.collapsed .nav-item[data-tooltip]::after { display: none; }
+
+    .main-content { margin-left: 0 !important; }
+    .main-content.expanded { margin-left: 0 !important; }
+
+    .top-navbar {
+        left: 0 !important;
+        padding: 0 16px;
+    }
+    .top-navbar.expanded { left: 0 !important; }
+
+    .navbar-search { display: none; }
+
+    .hero-section {
+        padding: 28px 20px;
+        min-height: auto;
+    }
+    .hero-title { font-size: 26px; }
+    .hero-subtitle { font-size: 14px; }
+
+    .hero-search input { height: 46px; font-size: 14px; }
+
+    .user-name { display: none; }
+
+    .dictionary-filters { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; }
+    .filter-chip { flex-shrink: 0; }
+
+    .admin-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-table { display: block; overflow-x: auto; }
+
+    .content-footer { flex-direction: column; gap: 8px; text-align: center; }
+
+    .auth-page { padding: 16px; }
+    .auth-card { padding: 24px; }
+
+    .tabs { overflow-x: auto; }
+    .tab { flex-shrink: 0; }
+
+    .modal { width: 95%; padding: 20px; margin: 10px; }
+
+    .mobile-overlay {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+/* Small Mobile (480px) */
+@media (max-width: 480px) {
+    .page-content { padding: 12px; }
+    .hero-section { padding: 24px 16px; }
+    .hero-title { font-size: 22px; }
+    .hero-subtitle { font-size: 13px; }
+    .hero-search input { height: 42px; font-size: 13px; }
+    .hero-search .hero-search-btn { width: 38px; height: 38px; }
+
+    .card { padding: 16px; }
+    .feature-card { padding: 18px; }
+    .category-card { padding: 18px; }
+
+    .wod-word { font-size: 26px; }
+
+    .stat-card .stat-value { font-size: 22px; }
+
+    .admin-grid { grid-template-columns: 1fr; }
+
+    .top-navbar { padding: 0 12px; }
+    .nav-icon-btn { width: 32px; height: 32px; font-size: 14px; }
+
+    .user-profile { padding: 3px 8px 3px 3px; }
+    .user-avatar { width: 28px; height: 28px; }
+
+    .btn { padding: 6px 14px; font-size: 12px; }
+    .btn-lg { padding: 10px 18px; font-size: 14px; }
+
+    .auth-card { padding: 20px; }
+    .auth-header .auth-logo { width: 48px; height: 48px; font-size: 22px; }
+    .auth-header h1 { font-size: 20px; }
+
+    .word-detail-main { padding: 20px; }
+
+    .toast { max-width: calc(100vw - 32px); font-size: 12px; padding: 12px 14px; }
+    .toast-container { right: 16px; top: 72px; }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-section { min-height: 200px; padding: 20px 24px; }
+    .hero-title { font-size: 22px; }
+    .hero-subtitle { margin-bottom: 16px; }
+    .sidebar .sidebar-logo { height: 48px; }
+    .top-navbar { height: 52px; }
+    .main-content { padding-top: 52px; }
+    .page-content { padding: 12px 16px; }
+
+    .auth-page { align-items: flex-start; padding-top: 40px; }
+}
+
+/* Dark Mode Toggle Icon Rotation */
+.dark .theme-switch .fa-sun { display: none; }
+.dark .theme-switch .fa-moon { display: inline; }
+.light .theme-switch .fa-sun { display: inline; }
+.light .theme-switch .fa-moon { display: none; }
+
+/* Custom Scrollbar for Sidebar */
+.sidebar-nav::-webkit-scrollbar { width: 3px; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: transparent; border-radius: 2px; }
+.sidebar-nav:hover::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+/* Transition Helper */
+.theme-transition,
+.theme-transition * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Print Styles */
+@media print {
+    .sidebar, .top-navbar, .footer, .content-footer,
+    .btn, .hero-search, .interactive-map,
+    .mobile-overlay, .toast-container { display: none !important; }
+    .main-content { margin-left: 0 !important; padding-top: 0 !important; }
+    .page-content { padding: 0 !important; }
+    .card { break-inside: avoid; border: 1px solid #ddd !important; box-shadow: none !important; }
+    body { background: #fff !important; color: #000 !important; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus Visible for Accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .card { border-width: 2px; }
+    .hero-search input { border-width: 2px; }
+}
