@@ -1,10 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4f7eff"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
       <stop offset="100%" style="stop-color:#7c3aed"/>
     </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
   </defs>
-  <rect width="100" height="100" rx="22" fill="url(#lg)"/>
-  <text x="50" y="72" font-family="serif" font-size="64" font-weight="bold" fill="white" text-anchor="middle">म</text>
+  <g filter="url(#shadow)">
+    <rect width="120" height="120" rx="28" fill="url(#bg)"/>
+    <rect width="120" height="120" rx="28" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+    <path d="M32 40h56v6H32zm0 16h44v6H32zm0 16h50v6H32z" fill="rgba(255,255,255,0.15)" rx="2"/>
+    <text x="60" y="104" font-family="serif" font-size="64" font-weight="bold" fill="white" text-anchor="middle">म</text>
+  </g>
 </svg>

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/images/logo.svg" alt="Mundari Sabdkosh Logo" width="480">
+</p>
+
 # Mundari Sabdkosh
 
 **Tribal Dictionary & Knowledge System**
@@ -61,7 +65,7 @@ A comprehensive digital platform for preserving and promoting the Mundari langua
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/mundari-sabdkosh.git
+   git clone https://github.com/mundaxa/mundari-sabdkosh.git
    ```
 
 2. **Create the database:**
