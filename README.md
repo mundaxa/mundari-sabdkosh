@@ -6,6 +6,8 @@
 
 **Tribal Dictionary & Knowledge System**
 
+> 🌐 **Live Site:** [mundaxa.github.io/mundari-sabdkosh](https://mundaxa.github.io/mundari-sabdkosh/)
+
 A comprehensive digital platform for preserving and promoting the Mundari language, tribal culture, and indigenous knowledge of the Munda community.
 
 ## Features
