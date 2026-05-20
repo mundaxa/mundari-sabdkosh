@@ -67,7 +67,7 @@ const Components = {
             el.outerHTML = `
             <aside class="sidebar">
                 <div class="sidebar-logo">
-                    <img src="assets/images/logo-icon.svg" alt="Mundari Sabdkosh" style="width:36px;height:36px;border-radius:8px;flex-shrink:0;">
+                    <img src="assets/images/birsa-munda.jpg" alt="Birsa Munda" style="width:40px;height:40px;border-radius:10px;object-fit:cover;flex-shrink:0;">
                     <div class="logo-text">
                         Mundari Sabdkosh
                         <span class="logo-sub">Tribal Dictionary & Knowledge System</span>
@@ -84,29 +84,29 @@ const Components = {
                         {label:'Archive', icon:'fa-archive', link:'archive.html'}
                     ])}
                     ${this.renderNavSection('Research', [
-                        {label:'Research Portal', icon:'fa-flask', link:'#'},
+                        {label:'Research Portal', icon:'fa-flask', link:'research.html'},
                         {label:'Learning Center', icon:'fa-graduation-cap', link:'learning.html'},
                         {label:'Media Library', icon:'fa-photo-video', link:'media.html'},
                         {label:'Maps & Regions', icon:'fa-map-marked-alt', link:'maps.html'},
-                        {label:'AI Tools', icon:'fa-robot', link:'#', badge:'AI'}
+                        {label:'AI Tools', icon:'fa-robot', link:'ai-tools.html', badge:'AI'}
                     ])}
                     ${this.renderNavSection('Community', [
                         {label:'Community', icon:'fa-users', link:'community.html'},
-                        {label:'Discussions', icon:'fa-comments', link:'#'},
-                        {label:'Contributors', icon:'fa-trophy', link:'#'},
-                        {label:'Events & Calendar', icon:'fa-calendar', link:'#'}
+                        {label:'Discussions', icon:'fa-comments', link:'discussions.html'},
+                        {label:'Contributors', icon:'fa-trophy', link:'contributors.html'},
+                        {label:'Events & Calendar', icon:'fa-calendar', link:'events.html'}
                     ])}
                     ${this.renderNavSection('Tools', [
-                        {label:'Transliteration', icon:'fa-exchange-alt', link:'#'},
-                        {label:'OCR Scanner', icon:'fa-scanner', link:'#'},
-                        {label:'Developer Portal', icon:'fa-code', link:'#'},
-                        {label:'API Docs', icon:'fa-plug', link:'#'}
+                        {label:'Transliteration', icon:'fa-exchange-alt', link:'transliteration.html'},
+                        {label:'OCR Scanner', icon:'fa-scanner', link:'ocr.html'},
+                        {label:'Developer Portal', icon:'fa-code', link:'developer.html'},
+                        {label:'API Docs', icon:'fa-plug', link:'api-docs.html'}
                     ])}
                     ${this.renderNavSection('System', [
                         {label:'Bookmarks', icon:'fa-bookmark', link:'bookmarks.html'},
-                        {label:'Reports', icon:'fa-chart-bar', link:'#'},
+                        {label:'Reports', icon:'fa-chart-bar', link:'reports.html'},
                         ...(DB.isAdmin() ? [{label:'Admin Panel', icon:'fa-shield-alt', link:'admin/index.html'}] : []),
-                        {label:'Settings', icon:'fa-cog', link:'#'}
+                        {label:'Settings', icon:'fa-cog', link:'settings.html'}
                     ])}
                 </nav>
                 <div class="sidebar-footer">
