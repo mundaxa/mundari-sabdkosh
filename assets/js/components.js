@@ -67,7 +67,7 @@ const Components = {
             el.outerHTML = `
             <aside class="sidebar">
                 <div class="sidebar-logo">
-                    <div class="logo-icon">म</div>
+                    <img src="assets/images/logo-icon.svg" alt="Mundari Sabdkosh" style="width:36px;height:36px;border-radius:8px;flex-shrink:0;">
                     <div class="logo-text">
                         Mundari Sabdkosh
                         <span class="logo-sub">Tribal Dictionary & Knowledge System</span>
